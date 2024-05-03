@@ -1,0 +1,142 @@
+#1 menor clave
+lengauje natural: Recorrer el árbol de manera iterativa, descendiendo siempre por el hijo izquierdo hasta alcanzar el nodo más a la izquierda, que contendrá la menor clave.
+Precondiciones: El árbol no está vacío.
+Postcondiciones: Se devuelve la menor clave del árbol.
+pseudocodigo:
+
+arbol
+COM
+Si raiz <> nulo:
+  raiz.menorclave()
+FIN
+
+raiz
+COM
+  si this.hijoIzq <> nulo:
+    this.hijoIzq.menorclave()
+  sino:
+    return this.clave
+FIN
+
+#2 mayor clave
+lengauje natural: Recorrer el árbol de manera iterativa, descendiendo siempre por el hijo derecho hasta alcanzar el nodo más a la derecha, que contendrá la mayor clave.
+Precondiciones: El árbol no está vacío.
+Postcondiciones: Se devuelve la mayor clave del árbol.
+pseudocodigo:
+
+arbol
+COM
+Si raiz <> nulo:
+  raiz.mayorclave()
+FIN
+
+raiz
+COM
+  si this.hijoDer <> nulo:
+    this.hijoDer.mayorclave()
+  sino:
+    return this.clave
+FIN
+
+#3 clave inmediata anterior(clave de tipo comparable)
+lengauje natural: Recorrer el árbol de manera iterativa, descendiendo siempre por el hijo derecho hasta alcanzar el nodo más a la derecha, que contendrá la mayor clave.
+Precondiciones: El árbol no está vacío.
+Postcondiciones: Se devuelve la mayor clave del árbol.
+Casos de prueba:
+Caso 1: La clave dada es la menor del árbol.
+Caso 2: La clave dada es la mayor del árbol.
+Caso 3: La clave tiene un predecesor en el árbol.
+Caso 4: La clave no tiene predecesor en el árbol.
+
+pseudocodigo:
+
+arbol
+COM
+Si raiz = clave:
+  retornar -1
+Si raiz <> nulo:
+  raiz.claveAnterior(clave)
+FIN
+
+raiz
+actual = this
+anterior = nulo
+
+si this = clave:
+  return anterior
+
+Si this.clave > clave:
+  anterior = this
+  this.hijoDer.claveAnterior(clave)
+
+si this.clave < clave:
+  anterior = this
+  this.hijoIzq.claveAnterior(clave)
+
+FIN
+
+#4
+Obtener la cantidad de nodos de un nivel dado:
+Descripción: Se busca la cantidad de nodos que están en un nivel específico del árbol. Esto implica recorrer el árbol de manera recursiva y contar los nodos que se encuentran en el nivel deseado.
+Precondiciones: El árbol no está vacío y el nivel proporcionado como parámetro es válido (mayor o igual a cero).
+Postcondiciones: Se devuelve la cantidad de nodos que están en el nivel dado.
+Casos de prueba:
+Caso 1: Árbol con un solo nodo en el nivel dado.
+Caso 2: Árbol con varios nodos en el nivel dado.
+Caso 3: Árbol sin nodos en el nivel dado.
+Algoritmo en seudocódigo:
+
+COM
+cantidadNodosEnNivel(nivelDeseado: entero, nodo: Nodo) -> entero
+  si nodo = nulo entonces
+      devolver 0
+  sino si nivelDeseado = 0 entonces
+      devolver 1
+  sino
+      izquierda <- cantidadNodosEnNivel(nivelDeseado - 1, nodo.izquierdo)
+      derecha <- cantidadNodosEnNivel(nivelDeseado - 1, nodo.derecho)
+      devolver izquierda + derecha
+FIN
+
+#5
+Listar todas las hojas cada una con su nivel:
+Descripción: Se recorre el árbol de manera recursiva y se identifican las hojas (nodos sin hijos). Para cada hoja encontrada, se registra su nivel.
+Precondiciones: El árbol no está vacío.
+Postcondiciones: Se lista cada hoja del árbol con su respectivo nivel.
+Casos de prueba:
+Caso 1: Árbol con una sola hoja.
+Caso 2: Árbol con múltiples hojas en diferentes niveles.
+Algoritmo en seudocódigo
+COM
+listarHojasConNivel(nodo: Nodo, nivel: entero)
+  si nodo ≠ nulo entonces
+      si nodo.izquierdo = nulo y nodo.derecho = nulo entonces
+          mostrar "Hoja:", nodo.valor, "Nivel:", nivel
+      sino
+          listarHojasConNivel(nodo.izquierdo, nivel + 1)
+          listarHojasConNivel(nodo.derecho, nivel + 1)
+FIN
+
+#6
+Verificar si el árbol es de búsqueda:
+Descripción: Se verifica si el árbol cumple con la propiedad de un árbol binario de búsqueda, es decir, que para cada nodo, todos los nodos del subárbol izquierdo tienen valores menores y todos los nodos del subárbol derecho tienen valores mayores.
+Precondiciones: El árbol no está vacío.
+Postcondiciones: Se devuelve verdadero si el árbol es un árbol binario de búsqueda, falso en caso contrario.
+Casos de prueba:
+Caso 1: Árbol que cumple la propiedad de un árbol de búsqueda.
+Caso 2: Árbol que no cumple la propiedad de un árbol de búsqueda.
+Algoritmo en seudocódigo:
+COM
+esArbolDeBusqueda(nodo: Nodo) -> booleano
+  si nodo = nulo entonces
+      devolver verdadero
+  sino
+      si nodo.izquierdo ≠ nulo y nodo.izquierdo.valor > nodo.valor entonces
+          devolver falso
+      sino si nodo.derecho ≠ nulo y nodo.derecho.valor < nodo.valor entonces
+          devolver falso
+      sino
+          izquierda <- esArbolDeBusqueda(nodo.izquierdo)
+          derecha <- esArbolDeBusqueda(nodo.derecho)
+          devolver izquierda y derecha
+FIN
